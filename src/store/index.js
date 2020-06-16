@@ -44,9 +44,15 @@ export default new Vuex.Store({
     postToy({ dispatch, state }){
       axios.post('https://us-central1-ottoklauss-b4ef0.cloudfunctions.net/toys/toy' , state.currentToy.data)
       .then(() =>{
-        dispatch('setToys')
+      dispatch('setToys')
       })
 
+    },
+    deleteToy({ dispatch }, id){
+      axios.delete(`https://us-central1-ottoklauss-b4ef0.cloudfunctions.net/toys/toy/${id}`)
+      .then(() => {
+        dispatch('setToys')
+      })
     }
   },
   modules: {

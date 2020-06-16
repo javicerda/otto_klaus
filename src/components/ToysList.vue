@@ -18,9 +18,8 @@
                 <td>{{ toy.data.price }}</td>
                 <td>{{ toy.data.stock }}</td>
                 <td> 
-                <v-btn text @click="deleteToy">
+                <v-btn text @click="removeToy(toy.id)">
                 <v-icon>mdi-delete</v-icon> </v-btn>
-
                 <v-btn text @click="editToy">
                 <v-icon>mdi-pencil</v-icon> </v-btn>
                     
@@ -38,7 +37,13 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
     methods: {
-        ...mapActions([ 'setToys' ])
+        ...mapActions([ 'setToys', 'deleteToy']),
+        removeToy(id){
+            let confirmation = confirm('¿Estás seguro que deseas eliminar este juguete?')
+            if (confirmation) {
+                this.deleteToy(id)
+            }
+        }
     },
     computed:{
         ...mapState([ 'toys' ])
