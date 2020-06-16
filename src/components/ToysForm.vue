@@ -18,7 +18,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-            <v-btn depressed color="warning" class="mr-8 font-weight-black" @click="submitForm">Crear</v-btn>
+            <v-btn depressed color="warning" class="mr-8 font-weight-black" @click="submitForm">{{ !!currentToy.id ? 'Actualizar' : 'Crear' }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -29,10 +29,15 @@
 import { mapState, mapActions } from 'vuex'
 export default {
     methods:{
-        ...mapActions([ 'hideToyForm', 'updateName', 'updateCode', 'updatePrice', 'updateStock', 'postToy']),
+        ...mapActions([ 'hideToyForm', 'updateName', 'updateCode', 'updatePrice', 'updateStock', 'postToy', 'updateToy']),
         submitForm(){
-            this.postToy(),
-            this.hideToyForm()
+          if(this.currentToy.id) {
+            // si tiene id, llama a la función que actualiza los datos
+            this.updateToy(this.currentToy.id)
+          } else {
+            this.postToy()
+          }
+          this.hideToyForm()
         }
     },
     computed:{

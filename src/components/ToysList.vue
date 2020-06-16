@@ -20,7 +20,7 @@
                 <td> 
                 <v-btn text @click="removeToy(toy.id)">
                 <v-icon>mdi-delete</v-icon> </v-btn>
-                <v-btn text @click="editToy">
+                <v-btn text @click="editToy(toy.id)">
                 <v-icon>mdi-pencil</v-icon> </v-btn>
                     
                 </td>
@@ -37,12 +37,18 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
     methods: {
-        ...mapActions([ 'setToys', 'deleteToy']),
+        ...mapActions([ 'setToys', 'deleteToy', 'setCurrentToy', 'displayToyForm']),
         removeToy(id){
             let confirmation = confirm('¿Estás seguro que deseas eliminar este juguete?')
             if (confirmation) {
                 this.deleteToy(id)
             }
+        },
+        editToy(id){
+        //establecer el juguete actual, en base al id entregado
+        this.setCurrentToy(id)
+        //desplegar el formulario con el juguete actual
+        this.displayToyForm()
         }
     },
     computed:{
@@ -50,6 +56,8 @@ export default {
     },
     created() {
         this.setToys()
+        
+
     }
 }
 </script>
