@@ -18,9 +18,16 @@ export default new Vuex.Store({
   state: {
       toys: [],
       showForm: false,
-      currentToy: emptyToy
+      currentToy: emptyToy,
+      overlay: false
   },
   mutations: {
+    SET_EMPTY_TOY (state) {
+      state.currentToy.id = null
+      Object.keys(emptyToy.data).forEach(key => {
+        state.currentToy.data[key] = emptyToy.data[key]
+      })
+    },
     SET_TOYS(state, data) { state.toys = data },
     DISPLAY_TOY_FORM(state) { state.showForm = true },
     HIDE_TOY_FORM(state) { state.showForm = false },
@@ -28,14 +35,18 @@ export default new Vuex.Store({
     UPDATE_CODE(state, code) { state.currentToy.data.code = code},
     UPDATE_PRICE(state, price) { state.currentToy.data.price = price},
     UPDATE_STOCK(state, stock) { state.currentToy.data.stock = stock},
-    SET_CURRENT_TOY(state, toy){ state.currentToy = toy }
+    SET_CURRENT_TOY(state, toy){ state.currentToy = toy },
+    LOADING_OVERLAY(state) { state.overlay = true},
+    LOADING_OVERLAY_BYE(state) { state.overlay = false}
   },
   actions: {
     setToys({ commit }){
+      commit('LOADING_OVERLAY')
       axios.get('https://us-central1-ottoklauss-b4ef0.cloudfunctions.net/toys/toys')
       .then(response => {
-        commit('SET_CURRENT_TOY', emptyToy)
+        commit('SET_EMPTY_TOY')
         commit('SET_TOYS', response.data)
+        commit('LOADING_OVERLAY_BYE')
       }) 
     },
     displayToyForm ({ commit }) { commit('DISPLAY_TOY_FORM')},
@@ -51,23 +62,32 @@ export default new Vuex.Store({
       })
 
     },
-    deleteToy({ dispatch }, id){
+    deleteToy({ dispatch, commit }, id)
+    {commit('LOADING_OVERLAY')
       axios.delete(`https://us-central1-ottoklauss-b4ef0.cloudfunctions.net/toys/toy/${id}`)
       .then(() => {
         dispatch('setToys')
+        commit('LOADING_OVERLAY_BYE')
       })
     },
     setCurrentToy({ commit }, id){
+      commit('LOADING_OVERLAY')
       axios.get(`https://us-central1-ottoklauss-b4ef0.cloudfunctions.net/toys/toy/${id}`)
       .then((response) => {
         commit('SET_CURRENT_TOY', response.data)
+        commit('LOADING_OVERLAY_BYE')
       })
     },
-    updateToy({ state, dispatch }, id) {
+    updateToy({ state, dispatch, commit }, id) {
+      commit('LOADING_OVERLAY')
       axios.put(`https://us-central1-ottoklauss-b4ef0.cloudfunctions.net/toys/toy/${id}`, state.currentToy.data)
       .then(() => {
         dispatch('setToys')
+        commit('LOADING_OVERLAY_BYE')
       })
+    },
+    loadingOverlay({ commit }){
+      commit('LOADING_OVERLAY')
     }
   },
   modules: {

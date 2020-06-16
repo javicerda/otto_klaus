@@ -5,6 +5,9 @@
       <v-btn depressed large color="warning font-weight-black" class="mt-6 mx-8" @click="displayToyForm">Nuevo juguete</v-btn>
       <toys-list> </toys-list>
       <toys-form> </toys-form>
+      <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
     </v-main>
   </div>
 </template>
@@ -13,7 +16,7 @@
 import AppBar from '../components/AppBar'
 import ToysList from '../components/ToysList'
 import ToysForm from '../components/ToysForm'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   components: {
     AppBar,
@@ -22,6 +25,11 @@ export default {
   },
   methods: {
     ...mapActions ([ 'displayToyForm' ])
-  }
+  },
+   computed:{
+        ...mapState([ 'overlay' ])
+    },
 }
 </script>
+
+    

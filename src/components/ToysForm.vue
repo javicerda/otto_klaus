@@ -7,6 +7,9 @@
         dark
         >
           Ingresa Nuevo Juguete
+        <v-btn color="warning" fab dark small class="ml-15" @click="hideToyForm">
+          <v-icon dark>mdi-close</v-icon>
+        </v-btn>
         </v-card-title>
 
         <v-form class="mx-10">
