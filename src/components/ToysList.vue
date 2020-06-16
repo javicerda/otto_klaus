@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-6">
+    <div class="mt-6 mx-8">
         <v-simple-table class="mt-6">
             <template v-slot:default>
             <thead>
@@ -8,6 +8,7 @@
                 <th class="text-left">Código</th>
                 <th class="text-left">Precio</th>
                 <th class="text-left">Stock</th>
+                <th class="text-left">Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,6 +17,14 @@
                 <td>{{ toy.data.code }}</td>
                 <td>{{ toy.data.price }}</td>
                 <td>{{ toy.data.stock }}</td>
+                <td> 
+                <v-btn text @click="deleteToy">
+                <v-icon>mdi-delete</v-icon> </v-btn>
+
+                <v-btn text @click="editToy">
+                <v-icon>mdi-pencil</v-icon> </v-btn>
+                    
+                </td>
                 </tr>
             </tbody>
             </template>

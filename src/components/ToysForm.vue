@@ -3,13 +3,13 @@
     <v-dialog :value="showForm" width="500" persistent>
       <v-card>
         <v-card-title
-          class="headline grey lighten-2"
-          primary-title
+        class="headline blue white--text"
+        dark
         >
           Ingresa Nuevo Juguete
         </v-card-title>
 
-        <v-form>
+        <v-form class="mx-10">
         <v-text-field label="Nombre" type="text" :value="currentToy.data.name" @input="updateName" single-line/>
         <v-text-field label="Código" type="text" :value="currentToy.data.code" @input="updateCode" single-line/>
         <v-text-field label="Precio" prefix="$" :value="currentToy.data.price" @input="updatePrice" single-line/>
@@ -18,7 +18,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="submitForm">Crear</v-btn>
+            <v-btn depressed color="warning" class="mr-8 font-weight-black" @click="submitForm">Crear</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

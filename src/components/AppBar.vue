@@ -1,12 +1,12 @@
 <template>
   <div>
     <v-app-bar
-      color="deep-purple accent-4"
+      color="blue"
       dense
       dark
     >
     
-      <v-toolbar-title>OTTO KLAUS</v-toolbar-title>
+      <v-toolbar-title><b>OTTO KLAUS</b></v-toolbar-title>
 
       <v-spacer></v-spacer>
 

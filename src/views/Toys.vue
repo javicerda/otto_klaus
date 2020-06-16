@@ -2,7 +2,7 @@
   <div class="home"> 
     <app-bar> </app-bar>
     <v-main>
-      <v-btn depressed large color="purple accent-1" class="mt-6" @click="displayToyForm">Nuevo juguete</v-btn>
+      <v-btn depressed large color="warning font-weight-black" class="mt-6 mx-8" @click="displayToyForm">Nuevo juguete</v-btn>
       <toys-list> </toys-list>
       <toys-form> </toys-form>
     </v-main>
