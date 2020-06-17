@@ -45,10 +45,11 @@ export default {
             }
         },
         editToy(id){
+            this.displayToyForm()
         //establecer el juguete actual, en base al id entregado
         this.setCurrentToy(id)
         //desplegar el formulario con el juguete actual
-        this.displayToyForm()
+        
         }
     },
     computed:{
@@ -59,6 +60,8 @@ export default {
         
 
     }
+
+    //acción que me debuelva la lista ordenada.
 }
 </script>
 

@@ -4,28 +4,30 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const emptyToy = {
-                  data:{
-                    name: '',
-                    code: 0,
-                    price: '',
-                    stock: 0
-                  },
-                  id: null,
-                };
-
+function emptyToy() {
+  return {
+   id: null,
+   data: {
+     name: '',
+     code: '',
+     price: 0,
+     stock: 0
+   }
+ }
+}
 export default new Vuex.Store({
   state: {
       toys: [],
       showForm: false,
-      currentToy: emptyToy,
+      currentToy: emptyToy(),
       overlay: false
   },
   mutations: {
-    SET_EMPTY_TOY (state) {
-      state.currentToy.id = null
-      Object.keys(emptyToy.data).forEach(key => {
-        state.currentToy.data[key] = emptyToy.data[key]
+    SET_EMPTY_TOY(state) {
+      state.currentToy.id = null;
+      const empty = emptyToy()
+      Object.keys(empty.data).forEach(key => {
+        state.currentToy.data[key] = empty.data[key]
       })
     },
     SET_TOYS(state, data) { state.toys = data },
@@ -88,6 +90,10 @@ export default new Vuex.Store({
     },
     loadingOverlay({ commit }){
       commit('LOADING_OVERLAY')
+    },
+    closeForm({ commit }) {
+      commit('SET_EMPTY_TOY')
+      commit('HIDE_TOY_FORM')
     }
   },
   modules: {
